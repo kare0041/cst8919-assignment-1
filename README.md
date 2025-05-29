@@ -88,3 +88,7 @@ All dependencies are listed in `requirements.txt`
 - Keep your Auth0 credentials secure
 - Use a strong APP_SECRET_KEY
 - Always use HTTPS in production
+
+## 5-minute YouTube video demo
+
+https://youtu.be/ymvX3PRDJLA
