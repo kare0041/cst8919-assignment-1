@@ -108,4 +108,4 @@ All dependencies are listed in `requirements.txt`
 
 ## 5-minute YouTube video demo
 
-https://youtu.be/ymvX3PRDJLA
+https://youtu.be/N5QlXKbWkNw
