@@ -1,9 +1,11 @@
 # 📁 server.py -----
 
 import json
+import logging # Import the logging module
 from os import environ as env
 from urllib.parse import quote_plus, urlencode
 from functools import wraps
+from datetime import datetime # Added for timestamp
 
 from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
@@ -19,6 +21,9 @@ if ENV_FILE:
 
 app = Flask(__name__)
 app.secret_key = env.get("APP_SECRET_KEY")
+
+# Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # 👆 We're continuing from the steps above. Append this to your server.py file.
 
@@ -40,6 +45,7 @@ def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user' not in session:
+            app.logger.warning(f"Unauthorized access attempt at {datetime.now()}") # Log unauthorized attempt
             return redirect('/login')
         return f(*args, **kwargs)
     return decorated_function
@@ -56,6 +62,11 @@ def login():
 def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
+    user_info = session.get('user')
+    if user_info:
+        user_id = user_info.get('userinfo', {}).get('sub')
+        email = user_info.get('userinfo', {}).get('email')
+        app.logger.info(f"User login: user_id={user_id}, email={email}, timestamp={datetime.now()}") # Log successful login
     return redirect("/")
 
 # 👆 We're continuing from the steps above. Append this to your server.py file.
@@ -84,6 +95,11 @@ def home():
 @app.route("/protected")
 @login_required
 def protected():
+    user_info = session.get('user')
+    if user_info:
+        user_id = user_info.get('userinfo', {}).get('sub')
+        email = user_info.get('userinfo', {}).get('email')
+        app.logger.info(f"Protected route accessed by user: user_id={user_id}, email={email}, timestamp={datetime.now()}") # Log protected route access
     return render_template("protected.html", session=session.get('user'))
 
 # 👆 We're continuing from the steps above. Append this to your server.py file.
