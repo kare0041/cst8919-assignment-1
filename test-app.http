@@ -1,0 +1,14 @@
+### Unauthorized Access Attempt
+GET https://cst8919-assignment-1-ffb2duabcpe9hch4.canadacentral-01.azurewebsites.net/protected
+
+### Initiate Login (This will redirect to Auth0 for actual login)
+GET https://cst8919-assignment-1-ffb2duabcpe9hch4.canadacentral-01.azurewebsites.net/login
+
+
+
+### Access Protected Route (After successful login, usually handled by browser session)
+# This request assumes you have an active session from a previous successful login in your browser.
+GET https://cst8919-assignment-1-ffb2duabcpe9hch4.canadacentral-01.azurewebsites.net/protected
+
+### Logout
+GET https://cst8919-assignment-1-ffb2duabcpe9hch4.canadacentral-01.azurewebsites.net/logout 

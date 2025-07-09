@@ -22,8 +22,8 @@ A simple Flask application that demonstrates authentication using Auth0. The app
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/kare0041/my-app
-cd my\ app/
+git clone https://github.com/kare0041/cst8919-assignment-1
+cd cst8919-assignment-1
 ```
 
 ### 2. Install Dependencies
@@ -32,36 +32,7 @@ cd my\ app/
 pip install -r requirements.txt
 ```
 
-### 3. Auth0 Configuration
-
-1. Log in to your [Auth0 Dashboard](https://manage.auth0.com/)
-2. Create a new application:
-3. Configure your application settings:
-   - In your application settings, add the following URLs:
-     - Allowed Callback URLs: `http://localhost:3000/callback` (and your Azure App Service URL, e.g., `https://<your-app-name>.azurewebsites.net/callback`)
-     - Allowed Logout URLs: `http://localhost:3000` (and your Azure App Service URL, e.g., `https://<your-app-name>.azurewebsites.net`)
-     - Allowed Web Origins: `http://localhost:3000` (and your Azure App Service URL, e.g., `https://<your-app-name>.azurewebsites.net`)
-
-4. Copy your Auth0 credentials:
-   - Domain
-   - Client ID
-   - Client Secret
-
-### 4. Environment Setup
-
-Create a `.env` file in the root directory with the following variables:
-
-```env
-AUTH0_DOMAIN=your-tenant.auth0.com
-AUTH0_CLIENT_ID=your-client-id
-AUTH0_CLIENT_SECRET=your-client-secret
-APP_SECRET_KEY=your-secret-key
-PORT=3000 # Or your desired port
-```
-
-Replace the values with your actual Auth0 credentials from your application settings.
-
-### 5. Azure App Service Deployment
+### 3. Azure App Service Deployment
 
 1.  **Create an Azure App Service**:
     *   Navigate to the Azure Portal and create a new Web App.
@@ -69,26 +40,25 @@ Replace the values with your actual Auth0 credentials from your application sett
 2.  **Deployment Method**:
     *   You can deploy via Git, local Git repository, GitHub Actions, or other methods.
     *   Ensure your `requirements.txt` is in the root directory for Azure to automatically install dependencies.
-3.  **Configure Application Settings**:
+
+### 4. Auth0 Configuration
+
+1. Log in to your [Auth0 Dashboard](https://manage.auth0.com/)
+2. Create a new application:
+3. Configure your application settings:
+   - In your application settings, add the following URLs:
+     - Allowed Callback URLs: use your Azure App Service URL, e.g., `https://<your-app-name>.azurewebsites.net/callback`)
+     - Allowed Logout URLs: use your Azure App Service URL, e.g., `https://<your-app-name>.azurewebsites.net`)
+     - Allowed Web Origins: use your Azure App Service URL, e.g., `https://<your-app-name>.azurewebsites.net`)
+
+4. Copy your Auth0 credentials:
+   - Domain
+   - Client ID
+   - Client Secret
+5.  **Configure Application Settings**:
     *   In your App Service, go to "Configuration" -> "Application settings".
     *   Add the environment variables from your `.env` file (e.g., `AUTH0_DOMAIN`, `AUTH0_CLIENT_ID`, `AUTH0_CLIENT_SECRET`, `APP_SECRET_KEY`). Azure App Service uses these as environment variables.
-4.  **Startup Command**:
-    *   For Python Flask applications, set the startup command under "Configuration" -> "General settings". A common command is `gunicorn --bind 0.0.0.0 --timeout 600 server:app`.
 
-### 6. Run the Application Locally
-
-```bash
-python3 server.py
-```
-
-The application will be available at `http://localhost:3000`
-
-## Routes
-
-- `/` - Home page
-- `/login` - Login page
-- `/logout` - Logout
-- `/protected` - Protected page (requires authentication)
 
 ## Logging and Monitoring
 
@@ -123,7 +93,7 @@ AppServiceConsoleLogs
 
 **Alert Logic:**
 
-This KQL query identifies users who have accessed the protected route more than 10 times in the last 15 minutes. An Azure Monitor Alert can be configured with this query to trigger notifications (e.g., email, SMS, webhook) when the condition is met, enabling proactive security response.
+This KQL query identifies users who have accessed the protected route more than 10 times in the last 15 minutes. An Azure Monitor Alert has been configured with this query to trigger notifications notification email when the condition is met, enabling proactive security response.
 
 ## Dependencies
 
@@ -134,12 +104,7 @@ The application uses the following main dependencies:
 
 All dependencies are listed in `requirements.txt`
 
-## Security Notes
 
-- Never commit your `.env` file to version control
-- Keep your Auth0 credentials secure
-- Use a strong APP_SECRET_KEY
-- Always use HTTPS in production
 
 ## 5-minute YouTube video demo
 
