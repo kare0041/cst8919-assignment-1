@@ -11,6 +11,10 @@ from authlib.integrations.flask_client import OAuth
 from dotenv import find_dotenv, load_dotenv
 from flask import Flask, redirect, render_template, session, url_for
 
+from flask import request
+from werkzeug.middleware.proxy_fix import ProxyFix
+
+
 # 👆 We're continuing from the steps above. Append this to your server.py file.
 
 ENV_FILE = find_dotenv()
@@ -26,6 +30,16 @@ app.secret_key = env.get("APP_SECRET_KEY")
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # 👆 We're continuing from the steps above. Append this to your server.py file.
+
+# Make Flask aware it's behind a proxy (like Azure)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
+
+# Optional: redirect HTTP to HTTPS if needed
+@app.before_request
+def enforce_https_in_production():
+    if not request.is_secure and not app.debug:
+        url = request.url.replace("http://", "https://", 1)
+        return redirect(url, code=301)
 
 oauth = OAuth(app)
 
