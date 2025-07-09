@@ -1,6 +1,6 @@
-# Flask Auth0 Authentication App
+# Securing and Monitoring an Authenticated Flask App
 
-A simple Flask application that demonstrates authentication using Auth0. The app includes a home page, protected route, and login/logout functionality.
+This is a simple Flask application that demonstrates authentication using Auth0, which is deployed on Azure Web App to make use of Azure monitor to detect suspecious activity. The app includes a home page, protected route, and login/logout functionality.
 
 ## Features
 
